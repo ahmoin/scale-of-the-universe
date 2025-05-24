@@ -21,30 +21,6 @@ let composer;
 const LY = 9.4607304725808e15;
 const siUnits = [
   {
-    unit: "ym",
-    factor: 1e-24,
-    fullName: "yoctometer",
-    plural: "yoctometers",
-  },
-  {
-    unit: "zm",
-    factor: 1e-21,
-    fullName: "zeptometer",
-    plural: "zeptometers",
-  },
-  {
-    unit: "am",
-    factor: 1e-18,
-    fullName: "attometer",
-    plural: "attometers",
-  },
-  {
-    unit: "fm",
-    factor: 1e-15,
-    fullName: "femtometer",
-    plural: "femtometers",
-  },
-  {
     unit: "pm",
     factor: 1e-12,
     fullName: "picometer",
@@ -145,7 +121,6 @@ function formatDistanceMeters(meters) {
   const formattedValue = formatTinyDecimal(value);
   const numericValue = parseFloat(formattedValue);
 
-  // Choose singular or plural full unit name
   const unitName =
     numericValue === 1 || numericValue === -1 ? best.fullName : best.plural;
 
