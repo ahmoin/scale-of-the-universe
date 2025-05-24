@@ -364,8 +364,6 @@ const labeldata = rawLabelData
 
 init();
 
-let lastTouchDistance = 0;
-
 function init() {
   const loader = new FontLoader();
   loader.load(
@@ -387,9 +385,6 @@ function init() {
   window.addEventListener("mousemove", onMouseMove);
   window.addEventListener("resize", onWindowResize);
   window.addEventListener("wheel", onMouseWheel);
-  window.addEventListener("touchstart", onTouchStart);
-  window.addEventListener("touchmove", onTouchMove);
-  window.addEventListener("touchend", onTouchEnd);
 }
 
 function initView(scene, name, logDepthBuf) {
@@ -635,39 +630,4 @@ function onMouseWheel(ev) {
   const dir = amount / Math.abs(amount);
   zoomspeed = dir / 10;
   minzoomspeed = 0.001;
-}
-
-function onTouchStart(event) {
-  if (event.touches.length === 2) {
-    const touch1 = event.touches[0];
-    const touch2 = event.touches[1];
-    lastTouchDistance = Math.hypot(
-      touch2.clientX - touch1.clientX,
-      touch2.clientY - touch1.clientY
-    );
-  }
-}
-
-function onTouchMove(event) {
-  if (event.touches.length === 2) {
-    const touch1 = event.touches[0];
-    const touch2 = event.touches[1];
-    const currentDistance = Math.hypot(
-      touch2.clientX - touch1.clientX,
-      touch2.clientY - touch1.clientY
-    );
-
-    if (lastTouchDistance > 0) {
-      const delta = lastTouchDistance - currentDistance;
-      zoomspeed = delta * 0.001;
-      minzoomspeed = 0.001;
-    }
-
-    lastTouchDistance = currentDistance;
-    event.preventDefault();
-  }
-}
-
-function onTouchEnd() {
-  lastTouchDistance = 0;
 }
